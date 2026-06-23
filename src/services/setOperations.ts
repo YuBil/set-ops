@@ -11,14 +11,9 @@ export function difference<T>(a: Set<T>, b: Set<T>): Set<T> {
 }
 
 // Parses a string into a Set of trimmed, non-empty strings.
-// Accepts comma-separated, newline-separated, or mixed formats (e.g. "1,\n2,\n3").
+// Accepts any combination of commas, spaces, and newlines as delimiters.
 export function parseSet(input: string): Set<string> {
-  return new Set(
-    input
-      .split(/[\n,]/)
-      .map((s) => s.trim())
-      .filter(Boolean),
-  );
+  return new Set(input.split(/[\s,]+/).filter(Boolean));
 }
 
 export function formatSet(set: Set<string>): string {

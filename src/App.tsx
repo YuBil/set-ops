@@ -2,12 +2,21 @@ import { useState } from 'react';
 import { SetInput } from './components/SetInput';
 import { SetResult } from './components/SetResult';
 import { OperationButtons } from './components/OperationButtons';
+import { parseSet, formatSet, union, intersection, difference } from './services/setOperations';
 import type { SetOperation } from './types/set-operations';
+
+const operations: Record<SetOperation, (a: Set<string>, b: Set<string>) => Set<string>> = {
+  union,
+  intersection,
+  difference,
+};
 
 export default function App() {
   const [setA, setSetA] = useState('');
   const [setB, setSetB] = useState('');
   const [operation, setOperation] = useState<SetOperation>('union');
+
+  const result = formatSet(operations[operation](parseSet(setA), parseSet(setB)));
 
   return (
     <main className="min-h-screen bg-gray-50 p-6 md:p-10">
@@ -31,7 +40,7 @@ export default function App() {
 
         <OperationButtons active={operation} onSelect={setOperation} />
 
-        <SetResult value="" />
+        <SetResult value={result} />
       </div>
     </main>
   );

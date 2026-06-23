@@ -86,6 +86,10 @@ describe('parseSet', () => {
     expect(parseSet('a, a, b')).toEqual(new Set(['a', 'b']));
   });
 
+  it('parses space-separated values', () => {
+    expect(parseSet('a b c')).toEqual(new Set(['a', 'b', 'c']));
+  });
+
   it('parses newline-separated values', () => {
     expect(parseSet('a\nb\nc')).toEqual(new Set(['a', 'b', 'c']));
   });
