@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { SetInput } from './components/SetInput';
 import { SetResult } from './components/SetResult';
 import { OperationButtons } from './components/OperationButtons';
-import { parseSet, formatSet, union, intersection, difference } from './services/setOperations';
+import { parseSet, formatSet, formatQuotedSet, union, intersection, difference } from './services/setOperations';
+import { useQuotedResult } from './hooks/useQuotedResult';
 import type { SetOperation } from './types/set-operations';
 
 const operations: Record<SetOperation, (a: Set<string>, b: Set<string>) => Set<string>> = {
@@ -15,8 +16,10 @@ export default function App() {
   const [setA, setSetA] = useState('');
   const [setB, setSetB] = useState('');
   const [operation, setOperation] = useState<SetOperation>('union');
+  const { isQuoted, toggle } = useQuotedResult();
 
-  const result = formatSet(operations[operation](parseSet(setA), parseSet(setB)));
+  const resultSet = operations[operation](parseSet(setA), parseSet(setB));
+  const result = isQuoted ? formatQuotedSet(resultSet) : formatSet(resultSet);
 
   return (
     <main className="min-h-screen bg-gray-50 p-6 md:p-10">
@@ -40,7 +43,7 @@ export default function App() {
 
         <OperationButtons active={operation} onSelect={setOperation} />
 
-        <SetResult value={result} />
+        <SetResult value={result} isQuoted={isQuoted} onQuote={toggle} />
       </div>
     </main>
   );

@@ -19,3 +19,7 @@ export function parseSet(input: string): Set<string> {
 export function formatSet(set: Set<string>): string {
   return [...set].join(', ');
 }
+
+export function formatQuotedSet(set: Set<string>): string {
+  return [...set].map((el) => `'${el}'`).join(', ');
+}
