@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { SetInput } from './components/SetInput';
 import { SetResult } from './components/SetResult';
 import { OperationButtons } from './components/OperationButtons';
+import { Footer } from './components/Footer';
 import { parseSet, formatSet, formatQuotedSet, union, intersection, difference } from './services/setOperations';
 import { useQuotedResult } from './hooks/useQuotedResult';
 import type { SetOperation } from './types/set-operations';
@@ -22,8 +23,8 @@ export default function App() {
   const result = isQuoted ? formatQuotedSet(resultSet) : formatSet(resultSet);
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6 md:p-10">
-      <div className="mx-auto max-w-4xl space-y-6">
+    <main className="min-h-screen bg-gray-50 p-6 md:p-10 flex flex-col">
+      <div className="mx-auto w-full max-w-7xl space-y-6">
         <h1 className="text-xl font-semibold text-gray-800">Set Operations</h1>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -45,6 +46,7 @@ export default function App() {
 
         <SetResult value={result} isQuoted={isQuoted} onQuote={toggle} />
       </div>
+      <Footer />
     </main>
   );
 }
