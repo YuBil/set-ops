@@ -85,6 +85,22 @@ describe('parseSet', () => {
   it('deduplicates repeated values', () => {
     expect(parseSet('a, a, b')).toEqual(new Set(['a', 'b']));
   });
+
+  it('parses newline-separated values', () => {
+    expect(parseSet('a\nb\nc')).toEqual(new Set(['a', 'b', 'c']));
+  });
+
+  it('parses mixed comma-and-newline format', () => {
+    expect(parseSet('a,\nb,\nc')).toEqual(new Set(['a', 'b', 'c']));
+  });
+
+  it('handles Windows line endings (CRLF)', () => {
+    expect(parseSet('a\r\nb\r\nc')).toEqual(new Set(['a', 'b', 'c']));
+  });
+
+  it('ignores blank lines', () => {
+    expect(parseSet('a\n\nb')).toEqual(new Set(['a', 'b']));
+  });
 });
 
 describe('formatSet', () => {

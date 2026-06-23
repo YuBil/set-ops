@@ -10,11 +10,12 @@ export function difference<T>(a: Set<T>, b: Set<T>): Set<T> {
   return new Set([...a].filter((item) => !b.has(item)));
 }
 
-// Parses a comma-separated string into a Set of trimmed, non-empty strings.
+// Parses a string into a Set of trimmed, non-empty strings.
+// Accepts comma-separated, newline-separated, or mixed formats (e.g. "1,\n2,\n3").
 export function parseSet(input: string): Set<string> {
   return new Set(
     input
-      .split(',')
+      .split(/[\n,]/)
       .map((s) => s.trim())
       .filter(Boolean),
   );
