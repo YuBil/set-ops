@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- left circle -->
+  <circle cx="18" cy="24" r="14" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <!-- right circle -->
+  <circle cx="30" cy="24" r="14" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <!-- intersection lens -->
+  <path d="M24 11.2a14 14 0 0 1 0 25.6A14 14 0 0 1 24 11.2z" fill="#1f2937" opacity="0.85"/>
+</svg>
