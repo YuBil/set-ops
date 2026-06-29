@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SetInput } from './components/SetInput';
 import { SetResult } from './components/SetResult';
+import { SetStats } from './components/SetStats';
 import { OperationButtons } from './components/OperationButtons';
 import { Footer } from './components/Footer';
 import { parseSet, formatSet, formatQuotedSet, union, intersection, difference } from './services/setOperations';
@@ -19,7 +20,9 @@ export default function App() {
   const [operation, setOperation] = useState<SetOperation>('union');
   const { isQuoted, toggle } = useQuotedResult();
 
-  const resultSet = operations[operation](parseSet(setA), parseSet(setB));
+  const parsedA = parseSet(setA);
+  const parsedB = parseSet(setB);
+  const resultSet = operations[operation](parsedA, parsedB);
   const result = isQuoted ? formatQuotedSet(resultSet) : formatSet(resultSet);
 
   return (
@@ -45,6 +48,7 @@ export default function App() {
         <OperationButtons active={operation} onSelect={setOperation} />
 
         <SetResult value={result} isQuoted={isQuoted} onQuote={toggle} />
+        <SetStats countA={parsedA.size} countB={parsedB.size} countResult={resultSet.size} />
       </div>
       <Footer />
     </main>
