@@ -5,6 +5,7 @@ import {
   difference,
   parseSet,
   formatSet,
+  formatQuotedSet,
 } from './setOperations';
 
 describe('union', () => {
@@ -109,10 +110,28 @@ describe('parseSet', () => {
 
 describe('formatSet', () => {
   it('joins values with comma and space', () => {
-    expect(formatSet(new Set(['a', 'b', 'c']))).toBe('a, b, c');
+    expect(formatSet(new Set(['a', 'b', 'c']))).toBe('a,b,c');
   });
 
   it('returns empty string for empty set', () => {
     expect(formatSet(new Set())).toBe('');
+  });
+});
+
+describe('formatQuotedSet', () => {
+  it('wraps each value in single quotes and joins with comma', () => {
+    expect(formatQuotedSet(new Set(['a', 'b', 'c']))).toBe("'a','b','c'");
+  });
+
+  it('returns empty string for empty set', () => {
+    expect(formatQuotedSet(new Set())).toBe('');
+  });
+
+  it('handles a single value', () => {
+    expect(formatQuotedSet(new Set(['x']))).toBe("'x'");
+  });
+
+  it('preserves values with spaces', () => {
+    expect(formatQuotedSet(new Set(['hello world']))).toBe("'hello world'");
   });
 });

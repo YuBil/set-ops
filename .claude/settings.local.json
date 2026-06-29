@@ -1,6 +1,7 @@
 {
   "permissions": {
     "allow": [
+      "Bash(sed 's|/set-diff-app/|/set-ops/|')",
       "Bash(npm install *)",
       "Bash(npm run *)",
       "Bash(npm test *)"
